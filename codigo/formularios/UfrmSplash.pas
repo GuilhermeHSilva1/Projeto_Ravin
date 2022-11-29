@@ -31,8 +31,9 @@ type
   private
     { Private declarations }
     Inicialized: Boolean;
-    procedure InicializeApplication();
-    procedure SetMainForm(NewMainForm: TForm);
+    procedure InicializarAplicacao();
+    procedure ShowPainelGestao();
+    procedure ShowLogin();
   public
     { Public declarations }
   end;
@@ -44,7 +45,7 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmPainelGestao;
+uses UfrmTelaLogin, UiniUtils, UfrmPainelGestao, USetMainForm;
 
 procedure TfrmSplash.FormCreate(Sender: TObject);
 begin
@@ -58,17 +59,16 @@ begin
   tmrSplash.Enabled := not Inicialized;
 end;
 
-procedure TfrmSplash.InicializeApplication;
+procedure TfrmSplash.InicializarAplicacao;
+var
+  LLogado: String;
 begin
-  if not Assigned(frmPainelGestao) then
-  begin
-    Application.CreateForm(TfrmPainelGestao, frmPainelGestao);
-  end;
+   LLogado := TIniUtils.lerPropriedade(TSECAO.INFORMACOES_GERAIS, TPROPRIEDADE.LOGADO);
 
-  SetMainForm(frmPainelGestao);
-  frmPainelGestao.Show();
-
-  Close;
+   if LLogado = TIniUtils.VALOR_VERDADEIRO then
+      ShowPainelGestao()
+   else
+      ShowLogin();
 end;
 
 procedure TfrmSplash.tmrSplashTimer(Sender: TObject);
@@ -77,16 +77,36 @@ begin
   if not Inicialized then
   begin
     Inicialized := true;
-    InicializeApplication();
+    InicializarAplicacao();
   end;
 end;
 
-procedure TfrmSplash.SetMainForm(NewMainForm: TForm);
-var
-  tmpMain: ^TCustomForm;
+procedure TfrmSplash.ShowLogin;
 begin
-  tmpMain := @Application.Mainform;
-  tmpMain^ := NewMainForm;
+
+if not Assigned(frmTelaLogin) then
+  begin
+    Application.CreateForm(TfrmTelaLogin, frmTelaLogin);
+  end;
+
+  TSetMainForm.SetMainForm(frmTelaLogin);
+  frmTelaLogin.Show();
+
+  Close;
+end;
+
+procedure TfrmSplash.ShowPainelGestao;
+begin
+
+if not Assigned(frmPainelGestao) then
+  begin
+    Application.CreateForm(TfrmPainelGestao, frmPainelGestao);
+  end;
+
+  TSetMainForm.SetMainForm(frmPainelGestao);
+  frmPainelGestao.Show();
+
+  Close;
 end;
 
 end.

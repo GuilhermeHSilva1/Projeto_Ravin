@@ -148,6 +148,20 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\codigo\database\UresourceUtils.pas"/>
+        <DCCReference Include="..\codigo\formularios\UfrmTelaLogin.pas">
+            <Form>frmTelaLogin</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\codigo\modelos\Uusuario.pas"/>
+        <DCCReference Include="..\codigo\dao\UusuarioDao.pas"/>
+        <DCCReference Include="..\codigo\formularios\UfrmRegistrar.pas">
+            <Form>Form2</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\codigo\validador\UValidadorUsuario.pas"/>
+        <DCCReference Include="..\Utils\UiniUtils.pas"/>
+        <DCCReference Include="..\codigo\database\UVerificarConexão.pas"/>
+        <DCCReference Include="..\Utils\USetMainForm.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

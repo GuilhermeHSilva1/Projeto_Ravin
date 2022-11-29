@@ -12,7 +12,15 @@ uses
   UfrmProdutos in '..\codigo\formularios\UfrmProdutos.pas' {frmProdutos},
   UfrmPainelGestao in '..\codigo\formularios\UfrmPainelGestao.pas' {frmPainelGestao},
   UfrmComandas in '..\codigo\formularios\UfrmComandas.pas' {frmComandas},
-  UresourceUtils in '..\codigo\database\UresourceUtils.pas';
+  UresourceUtils in '..\codigo\database\UresourceUtils.pas',
+  UfrmTelaLogin in '..\codigo\formularios\UfrmTelaLogin.pas' {frmTelaLogin},
+  Uusuario in '..\codigo\modelos\Uusuario.pas',
+  UusuarioDao in '..\codigo\dao\UusuarioDao.pas',
+  UfrmRegistrar in '..\codigo\formularios\UfrmRegistrar.pas' {Form2},
+  UValidadorUsuario in '..\codigo\validador\UValidadorUsuario.pas',
+  UiniUtils in '..\Utils\UiniUtils.pas',
+  UVerificarConexão in '..\codigo\database\UVerificarConexão.pas',
+  USetMainForm in '..\Utils\USetMainForm.pas';
 
 {$R *.res}
 

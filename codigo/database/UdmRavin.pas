@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MySQL,
   FireDAC.Phys.MySQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client,
   FireDAC.Comp.UI, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
-  FireDAC.DApt, FireDAC.Comp.DataSet, Vcl.Dialogs;
+  FireDAC.DApt, FireDAC.Comp.DataSet, Vcl.Dialogs, UiniUtils;
 
 type
   TdmRavin = class(TDataModule)
@@ -32,7 +32,7 @@ var
 implementation
 
 uses
-  UresourceUtils;
+  UVerificarConexão, UresourceUtils;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -75,32 +75,41 @@ procedure TdmRavin.cnxBancoDeDadosBeforeConnect(Sender: TObject);
 var
   LCriarBaseDados: Boolean;
 begin
-  LCriarBaseDados := not FileExists('C:\ProgramData\MySQL\MySQL Server 8.0\Data\ravin\statusmesa.ibd');
+  with TIniUtils do
+   begin
 
-  with cnxBancoDeDados do
-  begin
-    Params.Values['Server']:= 'localhost';
-    Params.Values['User_Name']:= 'root';
-    Params.Values['Password']:= 'root';
-    Params.Values['DriverID']:= 'MySQL';
-    Params.Values['Port'] := '3306';
+    TConnectionBD.Verificar_Conexao;
 
-    if not lCriarBaseDados then begin
-      Params.Values['Database'] := 'ravin';
-    end;
-  end;
+    LCriarBaseDados := not FileExists(TIniUtils.lerPropriedade(TSECAO.FILES, TPropriedade.FILE_EXISTS));
+
+      with cnxBancoDeDados do
+      begin
+
+        Params.Values['Server']   := lerPropriedade(TSECAO.DATABASE_CONNECTION, SERVER);
+        Params.Values['User_Name']:= lerPropriedade(TSECAO.DATABASE_CONNECTION, USER_NAME);
+        Params.Values['Password'] := lerPropriedade(TSECAO.DATABASE_CONNECTION, PASSWORD);
+        Params.Values['DriverID'] := lerPropriedade(TSECAO.DATABASE_CONNECTION, DRIVERID);
+        Params.Values['Port']     := lerPropriedade(TSECAO.DATABASE_CONNECTION, PORT);
+
+        if not lCriarBaseDados then begin
+          Params.Values['Database'] := lerPropriedade(TSECAO.DATABASE_CONNECTION, DATABASE);
+        end;
+
+      end;
+   end;
 end;
 
 procedure TdmRavin.cnxBancoDeDadosAfterConnect(Sender: TObject);
 var
   LCriarBaseDados: Boolean;
 begin
-  LCriarBaseDados := not FileExists('C:\ProgramData\MySQL\MySQL Server 8.0\Data\ravin\mesa.ibd');
+  LCriarBaseDados := not FileExists(TIniUtils.lerPropriedade(TSECAO.FILES, TPropriedade.FILE_EXISTS));
 
   if LCriarBaseDados then
   begin
     CriarTabelas;
     InserirDados;
+    cnxBancoDeDados.Params.Values['Database'] := TIniUtils.lerPropriedade(TSECAO.DATABASE_CONNECTION, DATABASE);
   end;
 
 end;

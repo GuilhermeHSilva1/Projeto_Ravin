@@ -6,7 +6,7 @@ object frmRegistrar: TfrmRegistrar
   Caption = 'Registrar'
   ClientHeight = 585
   ClientWidth = 650
-  Color = 2264591
+  Color = 9090669
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -100,7 +100,7 @@ object frmRegistrar: TfrmRegistrar
       Caption = 'Clique aqui para autenticar'
       Color = clWhite
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 2264591
+      Font.Color = 9090669
       Font.Height = -16
       Font.Name = 'Roboto'
       Font.Style = [fsBold]
@@ -205,7 +205,7 @@ object frmRegistrar: TfrmRegistrar
     Height = 41
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Autenticar'
-    Color = 2264591
+    Color = 9090669
     Font.Charset = SYMBOL_CHARSET
     Font.Color = clWhite
     Font.Height = -15

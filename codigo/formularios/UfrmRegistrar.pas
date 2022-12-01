@@ -16,7 +16,7 @@ uses
   Vcl.StdCtrls,
   Vcl.ExtCtrls,
   Vcl.Imaging.pngimage,
-  System.Actions, Vcl.ActnList, Vcl.ExtActns;
+  System.Actions, Vcl.ActnList, Vcl.ExtActns, Vcl.Mask;
 
 type
   TfrmRegistrar = class(TForm)

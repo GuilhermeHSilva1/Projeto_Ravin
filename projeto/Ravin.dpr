@@ -20,7 +20,12 @@ uses
   UValidadorUsuario in '..\codigo\validador\UValidadorUsuario.pas',
   UiniUtils in '..\Utils\UiniUtils.pas',
   UVerificarConexão in '..\codigo\database\UVerificarConexão.pas',
-  USetMainForm in '..\Utils\USetMainForm.pas';
+  USetMainForm in '..\Utils\USetMainForm.pas',
+  UfrmBotaoExcluir in '..\codigo\frames\UfrmBotaoExcluir.pas' {frmBotaoExcluir: TFrame},
+  UfrmBotaoCancelar in '..\codigo\frames\UfrmBotaoCancelar.pas' {frmBotaoCancelar: TFrame},
+  UfrmListaClientes in '..\codigo\formularios\UfrmListaClientes.pas' {frmListaClientes},
+  UfrmCadastroCliente in '..\codigo\formularios\UfrmCadastroCliente.pas' {frmCadastroCliente},
+  UfrmBotaoPrimario in '..\codigo\frames\UfrmBotaoPrimario.pas' {frmBotaoPrimario: TFrame};
 
 {$R *.res}
 
@@ -30,5 +35,7 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   Application.CreateForm(TdmRavin, dmRavin);
   Application.CreateForm(TfrmSplash, frmSplash);
+  Application.CreateForm(TfrmListaClientes, frmListaClientes);
+  Application.CreateForm(TfrmCadastroCliente, frmCadastroCliente);
   Application.Run;
 end.

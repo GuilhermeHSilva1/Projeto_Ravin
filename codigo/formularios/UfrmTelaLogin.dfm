@@ -4,7 +4,7 @@ object frmTelaLogin: TfrmTelaLogin
   Caption = 'Login'
   ClientHeight = 490
   ClientWidth = 650
-  Color = 2264591
+  Color = 9090669
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -28,6 +28,8 @@ object frmTelaLogin: TfrmTelaLogin
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
+    ExplicitLeft = 50
+    ExplicitTop = 5
     DesignSize = (
       350
       490)
@@ -1226,7 +1228,7 @@ object frmTelaLogin: TfrmTelaLogin
     end
     object lblSubTitulo: TLabel
       Left = 0
-      Top = 217
+      Top = 227
       Width = 350
       Height = 24
       Alignment = taCenter
@@ -1239,7 +1241,6 @@ object frmTelaLogin: TfrmTelaLogin
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      ExplicitWidth = 331
     end
     object lblSubTituloRegistrar: TLabel
       Left = 0
@@ -1262,7 +1263,7 @@ object frmTelaLogin: TfrmTelaLogin
       AutoSize = False
       Caption = 'Clique aqui para registrar'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 2264591
+      Font.Color = 9090669
       Font.Height = -15
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
@@ -1302,7 +1303,7 @@ object frmTelaLogin: TfrmTelaLogin
       Height = 41
       Anchors = [akLeft, akTop, akRight]
       Caption = 'Autenticar'
-      Color = 2264591
+      Color = 9090669
       Font.Charset = SYMBOL_CHARSET
       Font.Color = clWhite
       Font.Height = -15

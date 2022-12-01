@@ -56,35 +56,35 @@ var
 begin
 
   Ldao:= TUsuarioDao.Create();
- try
 
-    LUsuario := Ldao.BuscarUsuarioPorLoginSenha(edtLogin.Text, edtSenha.Text);
+  LUsuario := Ldao.BuscarUsuarioPorLoginSenha(edtLogin.Text, edtSenha.Text);
+  try
 
   if Assigned(LUsuario) then
+    begin
+
+      TIniUtils.gravarPropriedade(TSECAO.INFORMACOES_GERAIS, TPROPRIEDADE.LOGADO, TIniUtils.VALOR_VERDADEIRO);
+      TIniUtils.gravarPropriedade(TSECAO.INFORMACOES_GERAIS, TPROPRIEDADE.DATA_LOGIN, DateTimeToStr(now()));
+
+      if not Assigned(frmPainelGestao) then
       begin
+        Application.CreateForm(TfrmPainelGestao, frmPainelGestao);
+      end;
 
-        TIniUtils.gravarPropriedade(TSECAO.INFORMACOES_GERAIS, TPROPRIEDADE.LOGADO
-        , TIniUtils.VALOR_VERDADEIRO);
+      TSetMainForm.SetMainForm(frmPainelGestao);
+      frmPainelGestao.Show();
 
-        if not Assigned(frmPainelGestao) then
-        begin
-          Application.CreateForm(TfrmPainelGestao, frmPainelGestao);
-        end;
-
-        TSetMainForm.SetMainForm(frmPainelGestao);
-        frmPainelGestao.Show();
-
-        close();
+      close();
     end
     else
       showMessage('Login e/ou senha Invalido');
- Except
-  on E: exception do
-    showMessage(E.Message);
- end;
 
-  FreeAndNil(Ldao);
-  FreeAndNil(LUsuario);
+  finally
+
+    FreeAndNil(Ldao);
+    FreeAndNil(LUsuario);
+
+  end;
 
 end;
 

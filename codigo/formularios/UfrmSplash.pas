@@ -5,10 +5,10 @@ interface
 uses
   Winapi.Windows,
   Winapi.Messages,
-
-  System.SysUtils,
   System.Variants,
   System.Classes,
+  System.DateUtils,
+  System.SysUtils,
 
   Vcl.Graphics,
   Vcl.Controls,
@@ -36,6 +36,9 @@ type
     procedure ShowLogin();
   public
     { Public declarations }
+    function VerificarLoginExpirou(): Boolean;
+
+    const DIAS_MAX_LOGIN: Integer = 5;
   end;
 
 var
@@ -45,7 +48,7 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmTelaLogin, UiniUtils, UfrmPainelGestao, USetMainForm;
+uses UfrmTelaLogin, UiniUtils, UfrmPainelGestao, USetMainForm ;
 
 procedure TfrmSplash.FormCreate(Sender: TObject);
 begin
@@ -63,12 +66,22 @@ procedure TfrmSplash.InicializarAplicacao;
 var
   LLogado: String;
 begin
-   LLogado := TIniUtils.lerPropriedade(TSECAO.INFORMACOES_GERAIS, TPROPRIEDADE.LOGADO);
 
-   if LLogado = TIniUtils.VALOR_VERDADEIRO then
+  try
+   //Carregando se o usuário está logado
+   LLogado := TIniUtils.lerPropriedade(
+      TSECAO.INFORMACOES_GERAIS,
+      TPROPRIEDADE.LOGADO);
+
+
+   if (LLogado = TIniUtils.VALOR_VERDADEIRO) and not VerificarLoginExpirou then
       ShowPainelGestao()
    else
-      ShowLogin();
+      showLogin();
+
+  except
+    showLogin();
+  end;
 end;
 
 procedure TfrmSplash.tmrSplashTimer(Sender: TObject);
@@ -79,6 +92,20 @@ begin
     Inicialized := true;
     InicializarAplicacao();
   end;
+end;
+
+function TfrmSplash.VerificarLoginExpirou: Boolean;
+var
+  LData: TDateTime;
+begin
+
+  //Carregando a DataHora do ultimo login do Usuario
+  LData   := StrToDateTime(TIniUtils.lerPropriedade(
+    TSECAO.INFORMACOES_GERAIS,
+    TPROPRIEDADE.DATA_LOGIN));
+
+    Result:= IncDay(LData, DIAS_MAX_LOGIN) < now();
+
 end;
 
 procedure TfrmSplash.ShowLogin;
